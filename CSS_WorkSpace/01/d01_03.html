@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid blue;
+        }
+
+        tbody>tr>td {
+            border: 2px solid rgb(149, 29, 204);
+        }
+            
+        th {
+            background-color: skyblue
+        }
+
+        /*
+            태그 : 태그명
+            아이디 : #
+            클래스 : .
+            속성 : [src], [src="값"]
+        */
+    </style>
+</head>
+
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <th>홍길동</th>
+                <td>변호사</td>
+                <td>900</td>
+            </tr>
+            <tr>
+                <th>김길동</th>
+                <td>의사</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <th>박길동</th>
+                <td>프로그래머</td>
+                <td>4500</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <th>합계</th>
+            <th>-</th>
+            <th>7400</th>
+        </tfoot>
+        <thead>
+            <th>성명</th>
+            <th>직업</th>
+            <th>월급</th>
+        </thead>
+    </table>
+
+</body>
+
+</html>

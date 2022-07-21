@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            background-color: black;
+            color: #ff0;
+        }
+
+        /* inline > internal > external */
+        span {
+            border: 1px solid blue;
+        }
+
+        ul {
+
+            overflow: hidden;
+            /* 높이가 없으면 내용물의 크기에 자동으로 맞춘다. */
+            list-style: none;
+            padding: 0;
+            width: 500px;
+        }
+
+        li {
+            /*border : 0px solid orange;*/
+            border-top: 1px solid red;
+            border-bottom: 1px solid red;
+            width: 100px;
+            /*display : inline-block;*/
+            float: left;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            box-sizing: border-box;
+            background-color: white
+        }
+
+        li:hover {
+            background-color: yellowgreen;
+            border-bottom: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>범준샘 코딩교실</h1>
+    <span>hello</span><span>world</span>
+    <nav>
+        <ul>
+            <li>HOME</li>
+            <li>PROFILE</li>
+            <li>LETURE</li>
+            <li>GALLERY</li>
+            <li>SHOP</li>
+        </ul>
+    </nav>
+</body>
+
+</html>
