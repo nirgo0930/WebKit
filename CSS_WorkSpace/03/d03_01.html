@@ -8,7 +8,6 @@
     <title>Document</title>
     <style>
         ul {
-            border: 1px solid blue;
             width: 800px;
             height: 100px;
             padding: 0;
@@ -19,26 +18,26 @@
         }
 
         li {
-            border: 1px solid red;
             width: 200px;
             height: 100px;
             list-style: none;
             box-sizing: border-box;
             float: left;
+            text-align: center;
         }
 
         div#box {
             border: 1px solid black;
             width: 200px;
             height: 100px;
-            overflow: visible;
+            overflow: hidden;
             position: relative;
+            text-align: center;
         }
 
         #message {
             position: absolute;
-            top: 30px;
-            left: 10px;
+            bottom: 30px;
             display: none;
         }
 
@@ -47,9 +46,16 @@
             bottom: 5px;
             z-index: 1;
         }
-
+        #leftBtn{
+            left: 0px;
+        }
         #rightBtn {
             right: 0px;
+        }
+
+        img {
+            width: auto;
+            height: 70%;
         }
     </style>
 </head>
@@ -60,15 +66,16 @@
         <button id="rightBtn"> Right</button>
         <div id="message">마지막입니다</div>
         <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li><img src="b1.png" alt=""></li>
+            <li><img src="b2.png" alt=""></li>
+            <li><img src="b3.png" alt=""></li>
+            <li><img src="b4.png" alt=""></li>
         </ul>
     </div>
 
     <script>
         let boxUl = document.querySelector('#box>ul');
+        let boxLi = document.querySelectorAll('#box>li');
         let leftBtn = document.querySelector("#leftBtn");
         let rightBtn = document.querySelector("#rightBtn");
         let message = document.querySelector("#message");
@@ -77,11 +84,12 @@
         let value = -200;
 
         leftBtn.addEventListener('click', (e) => {
-            if (cnt < boxUl.childElementCount - 1) {
-                cnt++;
+            if (cnt > 0) {
+                cnt--;
                 boxUl.style.left = cnt * value + "px";
-            } else {
-                message.innerText = "마지막입니다";
+            }
+            else {
+                message.innerText = "시작입니다";
                 message.style.display = "block";
                 setTimeout(() => {
                     message.style.display = "none";
@@ -90,12 +98,11 @@
         }, true);
 
         rightBtn.addEventListener('click', (e) => {
-            if (cnt > 0) {
-                cnt--;
+            if (cnt < boxUl.childElementCount - 1) {
+                cnt++;
                 boxUl.style.left = cnt * value + "px";
-            }
-            else {
-                message.innerText = "시작입니다";
+            } else {
+                message.innerText = "마지막입니다";
                 message.style.display = "block";
                 setTimeout(() => {
                     message.style.display = "none";
