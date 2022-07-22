@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, maxinum-scale=1, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 미디어 쿼리 작성 순서 : 브라우저 기본*/
+        body {
+            background-color: skyblue;
+        }
+
+        /* 스마트폰 */
+        @media screen and (max-width:500px) {
+            body {
+                background-color: pink;
+            }
+        }
+
+        /* 태블릿 */
+        @media screen and (min-width:500px) and (max-width:700px) {
+            body {
+                background-color: yellowgreen;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Test Page</h1>
+    <h3>What are CSS Animations?</h3>
+    <p>
+        An animation lets an element gradually change from one style to another.<br />
+        You can change as many CSS properties you want, as many times as you want.<br />
+        To use CSS animation, you must first specify some keyframes for the animation.<br />
+        Keyframes hold what styles the element will have at certain times.<br />
+    </p>
+</body>
+
+</html>
