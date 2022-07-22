@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, maxinum-scale=1, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 3px;
+            padding: 3px;
+            border: 1px solid gray;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        body,
+        div.contents {
+            background-color: pink;
+            margin: 0;
+            padding: 0;
+            border: 0px;
+            border-radius: 0;
+        }
+
+        section,
+        aside {
+            float: left;
+            height: 400px;
+            background-color: white;
+        }
+
+        aside {
+            width: 20%;
+        }
+
+        section {
+            width: 55%;
+        }
+
+        section>p {
+            height: 200px;
+        }
+
+        footer {
+            clear: both;
+            background-color: white;
+        }
+
+        /* 스마트폰에서 보기 편한 형태로 반응형 적용.*/
+        @media screen and (max-width:767px) {
+            body {
+                background-color: skyblue;
+            }
+
+            section,
+            aside {
+                float: none;
+                width: auto;
+            }
+
+            aside {
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contents">
+        <header>header</header>
+        <nav>menu</nav>
+        <aside>left side</aside>
+        <section>
+            <p>main</p>
+            <article>내용1</article>
+            <article>내용2</article>
+            <article>내용3</article>
+        </section>
+        <aside>right side</aside>
+        <footer>
+            (c) Comstudy. 범준쌤 코딩교실
+        </footer>
+    </div>
+</body>
+
+</html>

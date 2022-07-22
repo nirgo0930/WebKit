@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>아날로그 시계</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/noto.sans.korea.css" />
+    <style>
+        #wrap {
+            width: 600px;
+            height: 600px;
+            position: fixed;
+            box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+            left: 50%;
+            top: 50%;
+            margin: -300px 0 0 -300px;
+            font-family: bon, sans-serif;
+        }
+
+        #wrap h1 {
+            height: 80px;
+            font-size: 50px;
+            text-align: center;
+            line-height: 80px;
+            font-weight: 700;
+            color: #424242;
+        }
+
+        #clock {
+            width: 500px;
+            height: 500px;
+            background: url(img/Clock-face.png);
+            background-size: 100% 100%;
+            margin: auto;
+            position: relative;
+        }
+
+        .hand {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #hour {
+            background: url(img/hour_hand.png);
+        }
+
+        #min {
+            background: url(img/minute_hand.png);
+        }
+
+        #sec {
+            background: url(img/second_hand.png);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <h1><i class="fa fa-clock-o"></i> 시계</h1>
+        <div id="clock">
+            <div id="hour" class="hand"></div>
+            <div id="min" class="hand"></div>
+            <div id="sec" class="hand"></div>
+        </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script>
+
+        function displayTime() {
+            var now = moment();
+
+            var hour = now.get("h");
+            var min = now.get("m");
+            var sec = now.get("s");
+
+            var hDeg = 360 / 12 * hour;
+            var mDeg = 360 / 60 * min;
+            var sDeg = 360 / 30 * sec;
+
+            $("#hour").css("transform", "rotate(" + hDeg + "deg)");
+            $("#min").css("transform", "rotate(" + mDeg + "deg)");
+            $("#sec").css("transform", "rotate(" + sDeg + "deg)");
+
+        }
+        displayTime();
+
+        setInterval(displayTime, 1000);
+
+    </script>
+</body>
+
+</html>

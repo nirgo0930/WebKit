@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>rotate</title>
+	<link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/notosanskr.css" />
+	<style>
+		body {
+			font-family: bon, sans-serif;
+		}
+
+		#wrap {
+			width: 610px;
+			margin: auto;
+			position: relative;
+		}
+
+		#wrap h1 {
+			text-align: center;
+			color: #fff;
+			font-weight: 700;
+			font-size: 48px;
+			margin: 30px;
+			position: relative;
+		}
+
+		#friends {
+			width: 480px;
+			height: 500px;
+			border: 10px solid #fff;
+			margin: auto;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#prevBtn,
+		#nextBtn {
+			width: 44px;
+			height: 44px;
+			position: absolute;
+			border: none;
+			background: url(img/kakaofriends_btn.png);
+			cursor: pointer;
+			top: 256px;
+		}
+
+		#prevBtn:hover {
+			background-position: -60px -347px;
+		}
+
+		#nextBtn:hover {
+			background-position: -60px -411px;
+		}
+
+		#prevBtn {
+			left: 0;
+			background-position: 0 -347px;
+		}
+
+		#nextBtn {
+			right: 0;
+			background-position: 0 -411px;
+		}
+
+
+		#imgBox {
+			width: 1480px;
+			height: 1480px;
+			background: pink;
+			position: absolute;
+			left: -500px;
+			top: 0;
+			transform: rotate(0deg);
+			transition: .3s cubic-bezier(.66, .05, .44, 1.46);
+		}
+
+		#imgBox .kakao {
+			width: 480px;
+			height: 500px;
+			position: absolute;
+			left: 500px;
+			transform-origin: 50% 740px;
+		}
+
+		#imgBox .kakao:nth-child(1) {
+			background-image: url(img/muji.png);
+
+		}
+
+		#imgBox .kakao:nth-child(2) {
+			background-image: url(img/frodo.png);
+			transform: rotate(90deg);
+		}
+
+		#imgBox .kakao:nth-child(3) {
+			background-image: url(img/neo.png);
+			transform: rotate(180deg);
+		}
+
+		#imgBox .kakao:nth-child(4) {
+			background-image: url(img/apeach.png);
+			transform: rotate(270deg);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrap">
+		<h1>카카오친구들</h1>
+		<div id="friends">
+			<div id="imgBox">
+				<div class="kakao"></div>
+				<div class="kakao"></div>
+				<div class="kakao"></div>
+				<div class="kakao"></div>
+			</div>
+			<!--//rotateBox-->
+		</div>
+		<!--//friends-->
+		<button id="prevBtn"></button>
+		<button id="nextBtn"></button>
+	</div>
+	<!--//wrap-->
+	<script>
+		let deg = 0;
+		let prevBtn = document.querySelector('#prevBtn');
+		let nextBtn = document.querySelector('#nextBtn');
+		let imgBox = document.querySelector('#imgBox');
+
+		prevBtn.addEventListener('click', (e) => {
+			deg -= 90;
+			imgBox.style.transform = "rotate(" + deg + "deg)";
+		}, true);
+		
+		nextBtn.addEventListener('click', (e) => {
+			deg += 90;
+			imgBox.style.transform = "rotate(" + deg + "deg)";
+		}, true);
+	</script>
+</body>
+
+</html>
