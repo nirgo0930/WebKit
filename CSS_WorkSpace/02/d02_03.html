@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <legend>계산기</legend>
+        <form action="">
+            <input type="text" name="num1" id="num1" size="5" value="0"> 
+            <select id="oper">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+                <option value="%">%</option>
+            </select>
+            <input type="text" name="num2" id="num2" size="5" value="0">
+            <input type="button" value="확인" id="resultBtn">
+            <div><span id="selOper">+</span>결과 : <span id="resultSapn">0</span></div>
+        </form>
+    </fieldset>
+
+    <script>
+        // querySelectorAll - 여러개를 컬렉션 형태로
+        let inputList = document.querySelectorAll("input");
+        inputList[0].style.backgroundColor = "yellow";
+        inputList[1].style.backgroundColor = "skyblue";
+        inputList[2].style.backgroundColor = "orange";
+
+        // querySelector - 하나만 선택 
+        let num1input = document.querySelector("#num1");
+        let num2input = document.querySelector("#num2");
+        let resultBtn = document.querySelector("#resultBtn");
+        let resultSapn = document.querySelector("#resultSapn");
+        let oper = document.querySelector("#oper");
+        let selOper = document.querySelector("#selOper");
+
+        const calcFactory = [];
+        let getAjaxCalc = function(x, y, oper) {
+            // Ajax를 이용해서 서버로 x, y값을 보내고 그 결과를 return.
+            // http://localhost:3000/calc/x/y/plu
+            let xhr = new XMLHttpRequest();
+            console.dir(xhr);
+            xhr.onreadystatechange = function() {
+                if(this.status==200 && this.readyState==4){
+                    let resultValue = JSON.parse(this.responseText)['resultValue'];
+                    resultSapn.innerText = resultValue;
+                    console.log(resultSapn.innerText);
+                }
+            }
+            let dataStr = `http://localhost:3000/calc/${x}/${y}/${oper}`;
+            console.log(dataStr);
+            xhr.open("GET", dataStr, true);
+            xhr.send();
+            return 0;
+        }
+        calcFactory['+'] = function(x, y) {
+            return getAjaxCalc(x, y, 'plu');
+        }
+        calcFactory['-'] = function(x, y) {
+            return getAjaxCalc(x, y, 'min');
+        }
+        calcFactory['*'] = function(x, y) {
+            return getAjaxCalc(x, y, 'mul');
+        }
+        calcFactory['/'] = function(x, y) {
+            return getAjaxCalc(x, y, 'div');
+        }
+        calcFactory['%'] = function(x, y) {
+            return getAjaxCalc(x, y, 'mod');
+        }
+
+        // 이벤트가 발생하면 num1, num2를 parseInt한다.
+        let calcControl = () => {
+            let num1 = Number(num1input.value);
+            let num2 = Number(num2input.value);
+            let operStr = oper.value;
+            console.log(operStr);
+            //resultSapn.innerText = num1 + num2;
+            let str = num1input.value + operStr + num2input.value;
+            // 문자열을 수식이나 object로 변경한다.
+            console.log(str);
+            selOper.innerText = operStr;
+            //resultSapn.innerText = eval(str); 
+            calcFactory[operStr](num1,num2);
+        }
+        resultBtn.onclick = calcControl;
+        // num1input과 num2input에 keypress이벤트가 발생하면
+        // 실시간으로 결과에 값이 보여지게 한다.
+        num1input.onkeyup = calcControl;
+        num2input.onkeyup = calcControl;
+        oper.onchange = calcControl;
+
+        // oper의 값에 따라 처리 결과가 다르게 구현.
+        
+
+    </script>
+</body>
+</html>

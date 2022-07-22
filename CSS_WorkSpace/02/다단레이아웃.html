@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header {
+            background-color: skyblue;
+            border: 3px solid black;
+            height: 75px;
+            margin-bottom: 3px;
+        }
+
+        nav {
+            background-color: skyblue;
+            border: 3px solid black;
+            height: 45px;
+            margin-bottom: 3px;
+
+        }
+
+        .center {
+            height: max-content;
+            margin-bottom: 3px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        aside {
+            background-color: skyblue;
+            width: 20%;
+            border: 3px solid black;
+        }
+
+        section {
+            width: 60%;
+            padding: 0px 3px;
+            height: max-content;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        section div {
+            margin-top: 3px;
+            width: 100%;
+            height: max-content;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #a1 {
+            width: 100%;
+            height: 70px;
+            background-color: skyblue;
+            border: 3px solid black;
+        }
+
+        #a2 {
+            width: 50%;
+            height: 70px;
+            margin-right: 1.5px;
+            background-color: skyblue;
+            border: 3px solid black;
+        }
+
+        #a3 {
+            width: 50%;
+            height: 70px;
+            margin-left: 1.5px;
+            background-color: skyblue;
+            border: 3px solid black;
+        }
+
+        footer {
+            background-color: skyblue;
+            height: 75px;
+            border: 3px solid black;
+        }
+    </style>
+</head>
+
+
+<body>
+    <header></header>
+    <nav></nav>
+    <div class="center">
+        <aside></aside>
+        <section>
+            <article id="a1"></article>
+            <div>
+                <article id="a2"></article>
+                <article id="a3"></article>
+            </div>
+        </section>
+        <aside></aside>
+    </div>
+    <footer></footer>
+</body>
+
+</html>

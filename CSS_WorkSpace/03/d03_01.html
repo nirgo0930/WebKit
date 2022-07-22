@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            border: 1px solid blue;
+            width: 800px;
+            height: 100px;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            left: 0px;
+            transition: left 0.5s;
+        }
+
+        li {
+            border: 1px solid red;
+            width: 200px;
+            height: 100px;
+            list-style: none;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        div#box {
+            border: 1px solid black;
+            width: 200px;
+            height: 100px;
+            overflow: visible;
+            position: relative;
+        }
+
+        #message {
+            position: absolute;
+            top: 30px;
+            left: 10px;
+            display: none;
+        }
+
+        #box button {
+            position: absolute;
+            bottom: 5px;
+            z-index: 1;
+        }
+
+        #rightBtn {
+            right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <button id="leftBtn">Left</button>
+        <button id="rightBtn"> Right</button>
+        <div id="message">마지막입니다</div>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <script>
+        let boxUl = document.querySelector('#box>ul');
+        let leftBtn = document.querySelector("#leftBtn");
+        let rightBtn = document.querySelector("#rightBtn");
+        let message = document.querySelector("#message");
+
+        let cnt = 0;
+        let value = -200;
+
+        leftBtn.addEventListener('click', (e) => {
+            if (cnt < boxUl.childElementCount - 1) {
+                cnt++;
+                boxUl.style.left = cnt * value + "px";
+            } else {
+                message.innerText = "마지막입니다";
+                message.style.display = "block";
+                setTimeout(() => {
+                    message.style.display = "none";
+                }, 1000);
+            }
+        }, true);
+
+        rightBtn.addEventListener('click', (e) => {
+            if (cnt > 0) {
+                cnt--;
+                boxUl.style.left = cnt * value + "px";
+            }
+            else {
+                message.innerText = "시작입니다";
+                message.style.display = "block";
+                setTimeout(() => {
+                    message.style.display = "none";
+                }, 1000);
+            }
+        }, true);
+
+    </script>
+</body>
+
+</html>

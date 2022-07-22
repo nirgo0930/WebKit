@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <table>
+            <tr>
+                <td>제목</td>
+                <td><input type="text" id="title"></td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td><input type="text" id="name"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td><textarea id="contents" cols="22" rows="4"></textarea></td>
+            </tr>
+        </table>
+        <input type="button" id="submitBtn" value="저장">
+    </form>
+
+    <br>
+    <hr>
+
+    <h3>입력하신 데이터는 다음과 같습니다.</h3>
+    <div>제목: <span id="resTitle">-</span></div>
+    <div>이름: <span id="resName">-</span></div>
+    <div>내용: <span id="resContents">-</span></div>
+
+    <script>
+        let submitBtn = document.querySelector("#submitBtn");
+        let resTitle = document.querySelector("#resTitle");
+        let resName = document.querySelector("#resName");
+        let resContents = document.querySelector("#resContents");
+
+        let getAjaxData = function() {
+            let title = document.querySelector("#title").value;
+            let name = document.querySelector("#name").value
+            let contents = document.querySelector("#contents").value;
+
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.status==200 && this.readyState==4) {
+                    let result = JSON.parse(this.responseText);
+                    resTitle.innerText = result['title'];
+                    resName.innerText = result['name'];
+                    resContents.innerText = result['contents'];
+                    return result;
+                }
+            };
+            
+            let dataStr = `http://localhost:3000/form?title=${title}&name=${name}&contents=${contents}`;
+            xhr.open("GET", dataStr, true);
+            xhr.send();
+            return 0;
+        };
+
+        submitBtn.onclick = getAjaxData;
+    </script>
+</body>
+</html>
