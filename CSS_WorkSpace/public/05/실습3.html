@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .row {
+        width: max-content;
+        padding: 10px;
+    }
+
+    #list.animate {
+        margin-left: 200px;
+        transition: .5s ease;
+    }
+
+    #list li {
+        width: 200px;
+        display: inline-block;
+    }
+
+    #list img {
+        border: 1px solid;
+    }
+
+    button {
+        width: 50px;
+        padding: 5px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<body>
+    <div class="row">
+        <ul id="list">
+            <li><img src="../images/img01.jpg" /></li>
+            <li><img src="../images/img02.jpg" /></li>
+            <li><img src="../images/img03.jpg" /></li>
+        </ul>
+    </div>
+    <button id="btn_r">next</button>
+
+    <script>
+        function setElementNodeNext(node) {
+            while (node.nodeType !== 1) {
+                node = node.nextSibling;
+            }
+            return node;
+        }
+
+        function setElementNodePre(node) {
+            while (node.nodeType !== 1) {
+                node = node.previousSibling;
+            }
+            return node;
+        }
+
+        function nodeRotate() {
+            var list = document.getElementById("list");
+            var firstChild = list.firstChild;
+            var lastChild = list.lastChild;
+
+            function swapNodes() {
+                firstChild = setElementNodeNext(list.firstChild);
+                lastChild = setElementNodePre(list.lastChild);
+
+                list.insertBefore(lastChild, firstChild);
+                firstChild = setElementNodeNext(list.firstChild);
+
+                list.className = "";
+                list.removeEventListener("transitionend", swapNodes);
+            }
+
+            list.className = "animate";
+            list.addEventListener("transitionend", swapNodes);
+        }
+
+        var btn = document.getElementById("btn_r");
+        btn.addEventListener("click", nodeRotate, false);
+    </script>
+</body>
+
+</html>

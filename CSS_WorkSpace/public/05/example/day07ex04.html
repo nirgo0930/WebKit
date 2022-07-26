@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    function Calc() {
+        this.result;
+    }
+    Calc.prototype.add = function(x, y) {
+        this.result = x + y;
+    }
+    Calc.prototype.getResult = function() {
+        return this.result;
+    }
+
+    function MinusCalc() { }
+    MinusCalc.prototype = new Calc();
+    MinusCalc.prototype.minus = function(x, y) {
+        this.result = x - y;
+    }
+
+    var myCalc = new Calc();
+    myCalc.add(3, 5);
+    var a = myCalc.getResult();
+    console.log("3 + 5 = " + a);
+
+    var yourCalc = new MinusCalc();
+    yourCalc.minus(10, 3);
+    console.log("10 - 3 = " + yourCalc.getResult() );
+
+    yourCalc.add(10,5);
+    console.log("10 + 5 = " + yourCalc.getResult() )
+</script>
+
+</body>
+</html>

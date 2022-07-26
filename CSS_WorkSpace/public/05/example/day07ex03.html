@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div.box {
+            width: 300px;
+            height: 25px;
+            border: 1px solid navy;
+            background: lightblue;
+            padding: 5px;
+        }
+        button.closeBtn {
+            display: block;
+            float: right;
+        }
+        div.box_content {
+            width: 300px;
+            height: 300px;
+            border: 1px solid navy;
+            background: white;
+            padding: 5px;
+            border-top: 0px;
+            top: 42px;
+        }
+    </style>
+    <script>
+        function BoxCls (x, y, obj) {
+            this.box = document.createElement('div');
+            this.boxContent = document.createElement('div');
+            this.closeBtn = document.createElement('button');
+
+            this.box.className = "box"
+            this.box.innerHTML = obj.title;
+            this.box.style.left = x + 'px';
+            this.box.style.top = y + 'px';
+            this.boxContent.className = "box_content";
+            this.boxContent.innerHTML = obj.content;
+            this.boxContent.style.left = x + 'px';
+            this.closeBtn.className = "closeBtn";
+            this.closeBtn.innerHTML = 'close'
+            this.box.appendChild(this.closeBtn);
+
+            document.body.appendChild(this.box);
+            document.body.appendChild(this.boxContent);
+
+            var THIS = this; //이벤트 핸들러 안에서 클래스의 참조값을 사용하기 위함.
+            this.closeBtn.onclick = function () {
+                THIS.box.style.display = "none";
+                THIS.boxContent.style.display = "none";
+            };
+            this.box.style.position = 'absolute';
+            this.boxContent.style.position = 'absolute';
+            this.boxContent.style.top = parseInt(this.box.style.top)+35 + 'px';
+            this.boxContent.onmousedown = function() {
+                THIS.topZindex(THIS);
+            };
+            this.box.onmousedown = function() {
+                THIS.box.xGap = event.clientX - THIS.box.offsetLeft;
+                THIS.box.yGap = event.clientY - THIS.box.offsetTop;
+                THIS.topZindex(THIS);
+                document.onmousemove = function () {
+                    var mX = event.clientX; //마우스 좌표
+                    var mY = event.clientY;
+                    THIS.box.style.left = mX - THIS.box.xGap + 'px';
+                    THIS.box.style.top = mY - THIS.box.yGap + 'px';
+                    THIS.boxContent.style.left = THIS.box.style.left;
+                    THIS.boxContent.style.top = parseInt(THIS.box.style.top)+35 + 'px';
+                }
+            }
+            document.onmouseup = function() {
+                document.onmousemove = null;
+            }
+        };
+        BoxCls.prototype.zIndex = 1;
+        BoxCls.prototype.topZindex = function(THIS) {
+            BoxCls.prototype.zIndex = BoxCls.prototype.zIndex + 1;
+            THIS.box.style.zIndex = BoxCls.prototype.zIndex;
+            THIS.boxContent.style.zIndex = BoxCls.prototype.zIndex;
+        }
+
+        window.onload = function() {
+            new BoxCls(400,100,{title:'공지사항1',content:'공지사항1 내용, 공지사항입니다.'});
+            new BoxCls(100,100,{title:'공지사항2',content:'공지사항2 내용, 공지사항입니다.'});
+            new BoxCls(100,400,{title:'공지사항2',content:'공지사항2 내용, 공지사항입니다.'});
+            new BoxCls(400,400,{title:'공지사항2',content:'공지사항2 내용, 공지사항입니다.'});
+        }
+    </script>
+</head>
+<body>
+
+
+
+</body>
+</html>

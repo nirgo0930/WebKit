@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div#boxGroup div {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin: 10px;
+        }
+        div#boxGroup {
+            overflow: hidden;
+        }
+        div#box {
+            border: 1px solid red;
+            background: yellow;
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin: 10px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+<div id="boxGroup">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+</div>
+<div id="status">박스를 드래그 하여 옮겨 보세요</div>
+
+<div id="box">box</div>
+
+</body>
+</html>

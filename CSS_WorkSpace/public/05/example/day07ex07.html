@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var myFunc = (function() {
+        var name = ""; //private 화 시켰다.
+
+        return {
+            setName : function (_name) {
+                name = _name;
+            },
+            getName : function() {
+                return name;
+            },
+            display : function() {
+                console.log('입력된 이름은 '+name+'입니다.');
+            }
+        };
+    })();
+
+    myFunc.setName('Kim-gildong');
+    myFunc.display();
+</script>
+
+</body>
+</html>

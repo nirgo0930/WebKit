@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var arr = [
+        function() { return '첫번째 함수 실행'; },
+        function() { return '두번째 함수 실행'; },
+        function() { alert('세번째 홈수 호출'); }
+    ];
+
+    var func1 = arr[0];
+    console.log( func1() );
+
+    console.log(arr[1]() );
+
+    arr[2]();
+</script>
+
+</body>
+</html>

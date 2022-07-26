@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        li {
+            width: 100px;
+            height: 100px;
+            list-style: none;
+            background: orange;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<div id="box">box</div>
+
+<script>
+    var ulNode = document.querySelector('ul');
+    var lis = ulNode.children;
+
+    //querySelector는 크롬에서 로드가 걸리는 단점이 있다.
+    //var lis2 = document.querySelectorAll('li');
+    //console.log(lis2);
+    var box = document.querySelector('#box');
+
+    var myFunc = function(nodes) {
+        console.log(nodes);
+        var no = 0;
+        for(var i=0; i<nodes.length; i++) {
+            //nodes[i].no = i;
+            nodes[i].onclick = function(no) {
+                return function(){
+                    box.innerHTML = no;
+                };
+            }(i); //즉시 실행 함수
+        }
+    }
+    myFunc(lis);
+</script>
+
+</body>
+</html>

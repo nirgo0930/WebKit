@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
+
+    <style>
+        div.box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            background-color: yellow;
+            position: relative;
+            transition: left 0.1s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">Box</div>
+
+
+    <script>
+        var check = 1;
+
+        function moveBox(selector, callback) {
+            var box = document.querySelector(selector);
+            var x = box.offsetLeft;
+            var step = 30;
+            var interval = setInterval(function () {
+                x += step;
+                if (x <= 0 || x >= 500) {
+                    step *= -1;
+                    check = !check;
+                    callback(box);
+                }
+                box.style.left = x + "px";
+            }, 100);
+        }
+        moveBox(".box", function (target) {
+            
+            target.style.backgroundColor = check ? "Yellow" : "Red";
+            target.innerHTML = check ? "Box" : "완료!";
+        });
+
+
+    </script>
+</body>
+
+</html>
