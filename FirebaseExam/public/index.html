@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap 4 Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: beige;
+            padding-top: 50px
+        }
+
+        #nav-top {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#" id="nav-top">LYS HomePage</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link link-home" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav"> -->
+                <nav class="navbar navbar-sidebar fixed-bottom">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#section1">Section 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#section2">Section 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#section3">Section 3</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                img
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="col-sm-3 img_click nav-link" href="#img">test1</a>
+                                <a class="col-sm-3 img_click nav-link" href="#img">test2</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-6" id="Home">
+                <h1>My First Bootstrap Page</h1>
+                <p>This is some text.</p>
+                <div class="row flex-nowrap justify-content-between align-items-center">
+
+                </div>
+                <div id="section1" class="container-fluid bg-success" style="padding-top:70px;padding-bottom:70px">
+                    <h1>Section 1</h1>
+                    <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this
+                        section and look at the navigation bar while scrolling!</p>
+                </div>
+                <div id="section2" class="container-fluid bg-warning" style="padding-top:70px;padding-bottom:70px">
+                    <h1>Section 2</h1>
+                    <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this
+                        section and look at the navigation bar while scrolling!</p>
+                </div>
+                <div id="section3" class="container-fluid bg-secondary" style="padding-top:70px;padding-bottom:70px">
+                    <h1>Section 3</h1>
+                    <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this
+                        section and look at the navigation bar while scrolling!</p>
+                </div>
+
+            </div>
+            <div class="col-sm-3" id="img">
+                <img class="img-fluid" src="" alt="">
+            </div>
+        </div>
+        <br>
+        <hr>
+        <footer class="site-footer block-footer">This is LYS's HomePage.</footer>
+    </div>
+
+
+    <script>
+        $('.link-home').attr("href", "https://webkit-44cf8.web.app/");
+
+        let imgList = ["img/b1.png", "img/b2.png"];
+
+        let liList = document.querySelectorAll(".img_click");
+        console.log(liList);
+        liList.forEach((item, i) => {
+            item.addEventListener('click', (e) => {
+                var img = document.querySelector('.img-fluid');
+                img.src = imgList[i];
+
+            }, true);
+        });
+
+    </script>
+</body>
+
+</html>

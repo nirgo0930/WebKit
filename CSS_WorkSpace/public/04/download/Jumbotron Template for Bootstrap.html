@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/3.4/examples/jumbotron/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="https://getbootstrap.com/docs/3.4/favicon.ico">
+  <link rel="canonical" href="https://getbootstrap.com/docs/3.4/examples/jumbotron/">
+
+  <title>Jumbotron Template for Bootstrap</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./Jumbotron Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="./Jumbotron Template for Bootstrap_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./Jumbotron Template for Bootstrap_files/jumbotron.css" rel="stylesheet">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="./Jumbotron Template for Bootstrap_files/ie-emulation-modes-warning.js.다운로드"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="https://getbootstrap.com/docs/3.4/examples/jumbotron/#">Test Project name</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" placeholder="Email" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Password" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-success">Sign in</button>
+        </form>
+      </div>
+      <!--/.navbar-collapse -->
+    </div>
+  </nav>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Test</h1>
+      <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+        jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+      </p>
+      <p><a class="btn btn-primary btn-lg" href="https://getbootstrap.com/docs/3.4/examples/jumbotron/#"
+          role="button">Learn more »</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- List Box -->
+    <div id="list_box"></div>
+
+    <hr>
+
+    <footer>
+      <p>© 2016 Company, Inc.</p>
+    </footer>
+  </div> <!-- /container -->
+
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="./Jumbotron Template for Bootstrap_files/jquery-1.12.4.min.js.다운로드"
+    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+    crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="./Jumbotron Template for Bootstrap_files/bootstrap.min.js.다운로드"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="./Jumbotron Template for Bootstrap_files/ie10-viewport-bug-workaround.js.다운로드"></script>
+  <script src="https://unpkg.com/underscore@1.13.4/underscore-umd-min.js"></script>
+  <script>
+    let rowTemp =
+      `<div class="col-md-4">
+        <h2><%= heading %></h2>
+        <p><%= content %></p>
+        <p><a class="btn btn-default" href="<%= link %>" role="button"><%= detail %></a></p>
+      </div>    `;
+
+    let rowData = [
+      {
+        "heading": "heading1",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://naver.com",
+        "detail": "naver"
+      },
+      {
+        "heading": "heading2",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://google.com",
+        "detail": "google"
+
+      },
+      {
+        "heading": "heading3",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://naver.com",
+        "detail": "naver"
+
+      },
+      {
+        "heading": "heading4",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://naver.com",
+        "detail": "naver"
+      },
+      {
+        "heading": "heading5",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://google.com",
+        "detail": "google"
+
+      },
+      {
+        "heading": "heading6",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://naver.com",
+        "detail": "naver"
+
+      },
+      {
+        "heading": "heading7",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://naver.com",
+        "detail": "naver"
+      },
+      {
+        "heading": "heading8",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://google.com",
+        "detail": "google"
+
+      },
+      {
+        "heading": "heading9",
+        "content": "Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+        "link": "https://naver.com",
+        "detail": "naver"
+
+      }
+    ];
+
+    var compiled = _.template(rowTemp);
+
+    for (var i = 0; i < 3; i++) {
+      var htmlCode = "";
+      for (var j = 0; j < 3; j++) {
+        htmlCode += compiled(rowData[i * 3 + j]);
+      }
+      $('#list_box').append("<div class='row'>" + htmlCode + "</div>");
+    }
+
+  </script>
+
+</body>
+
+</html>
