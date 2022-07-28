@@ -13,12 +13,6 @@ app.get('/test', (req, res, next) => {
     res.end("<h1>Welcome Test</h1>");
 });
 
-//pubcic 폴더 static 설정
-app.use(express.static('public'));
-
-
-
-
 const server = http.createServer(app);
 server.listen(Port, function () {
     console.log(`Server running at http://localhost:${Port}`);
