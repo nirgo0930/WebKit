@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/views/car_list</title>
+</head>
+<body>
+    <h1>중고 자동차 목록</h1>
+    <hr>
+    <table border="1" width="100%">
+        <tr>
+            <th>번호</th>
+            <th>제품명</th>
+            <th>가격</th>
+            <th>회사</th>
+            <th>연식</th>
+        </tr>
+    <%
+        for(car of cars) {
+    %>
+        <tr>
+            <td><%=car._id%></td>
+            <td><%=car.name%></td>
+            <td><%=car.price%></td>
+            <td><%=car.company%></td>
+            <td><%=car.year%></td>
+        </tr>
+    <%
+        }
+    %>
+    </table>
+    
+</body>
+</html>

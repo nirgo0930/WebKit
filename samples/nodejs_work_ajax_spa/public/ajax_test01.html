@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 서버에 Ajax 요청 하는 클라이언트 측 페이지 (서버와 주소가 달라도 상관 없다.)-->
+    <script>
+        function stateChange(event) {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(event.target);
+                console.log(this);
+                console.log(xhr);
+            }
+        }
+        // Ajax를 가능하게 하는 객체 생성 - XMLHttpRequest 객체
+        // 서버와 비동기 통신을 가능하게 하는 객체
+        // 만약 XMLHttpRequest객체가 없다면 - iframe등을 이용해서 비동기 통신 가능.
+        // Ajax는 주소창을 통해서 정식 요청하는 부분과 Javascript를 이용해서 
+        // 백그라운드로 요청하는 부분이 따로 존재하는것.
+        // Ajax 처리기술의 발전 단계
+        // <iframe>태그 이용 --> XMLHttpRequest 객체 이용 --> Ajax전용 라이브러리 이용
+        // Ajax 실습 할 경우에 서버가 반드시 켜져 있어야 한다.
+        // 프론트 페이지와 서버의 주소는 같지 않아도 상관없다.(Open with Liveserver로 실행 가능)
+
+        // XMLHttpRequest 객체 선언
+        const xhr = new XMLHttpRequest();
+        //console.dir(xhr);
+
+        // 요청이 모두 완료되면 실행 되는 이벤트 핸들러
+        xhr.onreadystatechange = function (event) {
+            if (this.readyState === 4 && this.status === 200) {
+                var data = JSON.parse(this.responseText);
+                console.log(data.user, data.msg);
+            }
+        };
+
+        // 어디로 요청 할 것인지 지정한다.
+        xhr.open("GET", "http://localhost:3000/data/HONG/HELLO", true);
+
+        // 실행 하라!
+        xhr.send();
+    </script>
+</body>
+
+</html>
