@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #puzzle {
+            border: 3px solid black;
+            width: 400px;
+            height: 400px;
+        }
+
+        .cell {
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+            float: left;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        class PuzzleGame {
+            constructor() {
+                this.cells = [];
+                this.init();
+
+                this.checkItem = "";
+                this.isClicked = false;
+                this.isClickable = true;
+            }
+
+            init() {
+                const body = document.body;
+                body.innerHTML = `<h1>Puzzle</h1>    <hr />`;
+
+                const puzzle = document.createElement("div");
+                puzzle.id = "puzzle";
+
+                for (let i = 0; i < 16; i++) {
+                    let cell = document.createElement("div");
+                    cell.id = "cell" + i;
+                    cell.className = "cell";
+                    cell.innerText = String.fromCharCode(i % 8 + 65);
+
+                    this.cells.push(cell);
+                    puzzle.appendChild(cell);
+                }
+                body.appendChild(puzzle);
+            }
+
+            start() {
+                for (let i = 0; i < 50; i++) {
+                    let pos1 = Math.abs(Math.floor(Math.random() * 16));
+                    let pos2 = Math.abs(Math.floor(Math.random() * 16));
+
+                    this.swapCell(pos1, pos2);
+                }
+                setTimeout(() => {
+                    this.cells.forEach(cell => {
+                        cell.data = cell.innerText;
+                        cell.innerText = "";
+                        cell.addEventListener("click", () => {
+                            if (this.isClickable) {
+                                cell.innerText = cell.data;
+                                console.log(cell.id);
+                                this.compare(cell);
+                            }
+                        });
+                    });
+                }, 3000);
+                console.log(this.cells);
+            }
+
+            swapCell(a, b) {
+                let temp = this.cells[a].innerText;
+                this.cells[a].innerText = this.cells[b].innerText;
+                this.cells[b].innerText = temp;
+            }
+
+            compare(a) {
+                if (!this.isClicked) {
+                    this.checkItem = a;
+                    this.isClicked = true;
+                } else if (a.id != this.checkItem.id) {
+                    if (this.checkItem.data == a.data) {
+                        a.style.backgroundColor = "yellow";
+                        this.checkItem.style.backgroundColor = "yellow";
+
+                        console.log("정답");
+                    } else {
+                        this.isClickable = false;
+
+                        setTimeout(() => {
+                            this.checkItem.innerText = "";
+                            a.innerText = "";
+                            this.checkItem = "";
+                            this.isClickable = true;
+                        }, 500);
+                    }
+                    this.isClicked = false;
+                }
+            }
+        }
+
+
+        function main() {
+            new PuzzleGame().start();
+        }
+
+        window.addEventListener("load", main);
+    </script>
+</body>
+
+</html>

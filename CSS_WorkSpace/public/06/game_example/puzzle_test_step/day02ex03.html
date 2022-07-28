@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #puzzle {
+            border: 1px solid red;
+            width: 400px;
+            height: 400px;
+        }
+        div.cell {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            box-sizing: border-box;
+            float: left;
+        }
+        div.cell ul {
+            position: relative;
+            border: 0px solid blue;
+            width: 200px;
+            height: 100px;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            left: -100px;
+            transition: left .2s ease-in;
+        }
+        div.cell ul li {
+            width: 100px;
+            height: 100px;
+            float: left;
+            text-align: center;
+            line-height: 100px;
+        }
+        div.cell ul li:nth-child(1) {
+            background-color: #aaa;
+        }
+        div.cell ul li:nth-child(2) {
+            background-color: #ff0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="puzzle"></div>
+    <div id="status">상태: 5초 후에 게임 시작!</div>
+
+    <script id="template_cell" type="template/html">
+        <div class="cell">
+            <ul>
+                <li>?</li>
+                <li>-1</li>
+            </ul>
+        </div>
+    </script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        // 변수 선언 부분
+        var isPlay = false; // 게임의 시작을 알리는 변수.
+        var statusEl = document.getElementById('status');
+        var template_cell = document.getElementById("template_cell");
+        var txtCell = template_cell.innerHTML;
+        var puzzle = document.getElementById("puzzle");
+        var txtCells = "";
+        for(var i=0; i<16; i++) {
+            txtCells += txtCell;
+        }
+        puzzle.innerHTML = txtCells;
+        var cells = document.getElementsByClassName("cell");
+        // 각각 셀에 0~7까지의 숫자를 입력한다.
+        for(var i=0; i<cells.length; i++) {
+            // 해당 cell의 li태그를 가져오기
+            var numLabel = cells[i].getElementsByTagName("li")[1];
+            numLabel.innerText = i % (cells.length/2);
+        }
+        // 셀의 숫자를 섞어준다.
+        for(var cnt=0; cnt<50; cnt++) {
+            var i = Math.floor(Math.random()*16);
+            var j = Math.floor(Math.random()*16);
+            var iLabel = cells[i].getElementsByTagName("li")[1];
+            var jLabel = cells[j].getElementsByTagName("li")[1];
+            var tmp = iLabel.innerText;
+            iLabel.innerText = jLabel.innerText;
+            jLabel.innerText = tmp;
+        }
+        // 5초 후에 전체 감춰주기
+        setTimeout(function() {
+            for(var i=0; i<cells.length; i++) {
+                //$(cells[i]).trigger('click');
+                showHideLabel(cells[i]);
+            }
+        }, 5000);
+        // 1초에 함번씩 콜백함수 기능을 반복한다.
+        var count = 5;
+        var intervalRef = setInterval(function() {
+            count--;
+            if(count == 0) {
+                clearInterval(intervalRef);
+                statusEl.innerText = "상태: 게임 시작!";
+                // 함수 호출 부분
+                for(var i=0; i<cells.length; i++) {
+                    setEventHandler(cells[i]);
+                }
+                isPlay = true;
+                return;
+            }
+            statusEl.innerText = "상태: "+count+"초 후에 게임 시작!";
+        }, 1000);
+
+        // 각각 셀에 이벤트 등록
+        // 함수 선언 부분
+        function showHideLabel(cell) {
+            var ulTag = cell.getElementsByTagName("ul")[0];
+            if(ulTag.style.left == '0px') {
+                ulTag.style.left = '-100px';
+            } else {
+                ulTag.style.left = '0px';
+            }
+        }
+        
+        var tmpCell = null;
+        function setEventHandler(cell) {
+            cell.addEventListener('click',  function() {
+                if(isPlay) {
+                    // 처음 눌렀나? 두번째 눌렀나?
+                    if(tmpCell == null) {
+                        statusEl.innerText = "처음 셀입니다.";
+                        tmpCell = this;
+                    } else {
+                        if(tmpCell == this) {
+                            statusEl.innerText = "같은 셀을 두번 선택했습니다."
+                            return;
+                        }
+                        statusEl.innerText = "두번째 셀입니다.";
+                        tmpCell = null;
+                    }
+                    showHideLabel(this);
+                }
+            }, true);
+            $(cell).trigger('click');
+        }
+    </script>
+</body>
+</html>

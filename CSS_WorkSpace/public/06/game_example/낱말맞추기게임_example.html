@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #puzzle {
+            width: 700px;
+            height: 600px;
+            border: 1px solid black;
+        }
+        #puzzle div {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid black;
+            float: left;
+            text-align: center;
+            font-size: 72px;
+            font-weight: bold;
+            background-color: #aaaaaa;
+        }
+        #puzzle div.question{
+            background-color: #ffffff;
+            border: 3px solid black;
+        }
+        div#questionArea {
+            width: 700px;
+            height: 40px;
+            border: 1px solid black;
+            margin: 10px 0;
+        }
+        h1, h2{
+            text-align: center;
+            width: 700px;
+            margin-left: 0px;
+            margin-right: auto;
+        }
+        #questionArea {
+            font-size: 18pt;
+        }
+    </style>
+</head>
+<body>
+    <h1>::: 낱말 맞추기 퍼즐 게임 :::</h1>
+    <div id="puzzle">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div id="questionArea">문제 : </div>
+    <input type="text" id="answer"> <input type="button" id="okBtn" value="확인">
+    <div id="result">결과 : </div>
+
+    <hr>
+    <h1>영어 낱말 퍼즐 책은 </h1>
+    <h2>단한권의 책에서 출판한 양승순저자의 책이 좋습니다!</h2>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        var wordArr = [
+            ['B','R','O','T','H','E','R'],
+            ['A',' ',' ',' ',' ',' ',' '],
+            ['B',' ',' ',' ',' ',' ',' '],
+            ['Y','O','U','N','G',' ',' '],
+            [' ','L',' ',' ',' ',' ',' '],
+            [' ','D',' ',' ',' ',' ',' ']
+        ]
+        var puzzleArr = [];
+        var cells = ($('#puzzle').get(0)).getElementsByTagName("div");
+        var cnt = 0;
+        for(var i=0; i<6; i++) {
+            var row = [];
+            for(var j=0; j<7; j++) {
+                //cells[cnt].innerHTML = wordArr[i][j];
+                cells[cnt].ch = wordArr[i][j];
+                row.push(cells[cnt]);
+                cnt++;
+            }
+            puzzleArr.push(row);
+        }
+        var rowWord1 = "brother";
+        var rowWord2 = "young";
+        var colWord1 = "baby";
+        var colWord2 = "old";
+        var rowWord1Question = "형제";
+        var rowWord2Question = "젊은, 어린";
+        var colWord1Question = "아기";
+        var colWord2Question = "나이든";
+        var rowWord1Cells = [];
+        var rowWord2Cells = [];
+        var colWord1Cells = [];
+        var colWord2Cells = []
+        var checkArr = [];
+        var checkCells = null;
+        var areaList = [];
+        checkArr[rowWord1Question] = rowWord1;
+        checkArr[rowWord2Question] = rowWord2;
+        checkArr[colWord1Question] = colWord1;
+        checkArr[colWord2Question] = colWord2;
+        areaList[rowWord1Question] = rowWord1Cells;
+        areaList[rowWord2Question] = rowWord2Cells;
+        areaList[colWord1Question] = colWord1Cells;
+        areaList[colWord2Question] = colWord2Cells;
+        function resetCss() {
+            $(rowWord1Cells).css('border','3px solid black');
+            $(rowWord2Cells).css('border','3px solid black');
+            $(colWord1Cells).css('border','3px solid black');
+            $(colWord2Cells).css('border','3px solid black');
+        }
+        var flag = true;
+        for(var i=0; i<rowWord1.length; i++) {
+            rowWord1Cells.push(puzzleArr[0][i]);
+            puzzleArr[0][i].className = 'question';
+            puzzleArr[0][i].addEventListener('click', function() {
+                resetCss();
+                if(this == puzzleArr[0][0]){
+                    if(flag){
+                        flag = false;
+                    } else {
+                        flag = true;
+                    }
+                    return;
+                }
+                $(rowWord1Cells).css('border','3px solid red');
+                $('#questionArea').text('문제 : ' + rowWord1Question);
+                checkCells = rowWord1Question;
+                $('#answer').val("").focus();
+                $('#result').text("문제의 답을 입력 하세요.");
+                //flag = true;
+            });
+        }
+        for(var i=0; i<rowWord2.length; i++) {
+            rowWord2Cells.push(puzzleArr[3][i]);
+            puzzleArr[3][i].className = 'question';
+            puzzleArr[3][i].addEventListener('click', function() {
+                resetCss();
+                if(this == puzzleArr[3][1]){
+                    if(flag){
+                        flag = false;
+                    } else {
+                        flag = true;
+                    }
+                    return;
+                }
+                $(rowWord2Cells).css('border','3px solid red');
+                $('#questionArea').text('문제 : ' + rowWord2Question);
+                checkCells = rowWord2Question;
+                $('#answer').val("").focus();
+                $('#result').text("문제의 답을 입력 하세요.");
+                //flag = true;
+            });
+        }
+        for(var i=0; i<colWord1.length; i++) {
+            colWord1Cells.push(puzzleArr[i][0]);
+            puzzleArr[i][0].className = 'question';
+            puzzleArr[i][0].addEventListener('click', function() {
+                resetCss();
+                if(this == puzzleArr[0][0]){
+                    if(flag){
+                        $(rowWord1Cells).css('border','3px solid red');
+                        $('#questionArea').text('문제 : ' + rowWord1Question);
+                        checkCells = rowWord1Question;
+                        $('#answer').val("").focus();
+                        $('#result').text("문제의 답을 입력 하세요.");
+                    } else {
+                        $(colWord1Cells).css('border','3px solid red');
+                        $('#questionArea').text('문제 : ' + colWord1Question);
+                        checkCells = colWord1Question;
+                        $('#answer').val("").focus();
+                        $('#result').text("문제의 답을 입력 하세요.");
+                    }
+                    return;
+                }
+                if(this == puzzleArr[3][0]){
+                    if(flag){
+                        $(rowWord2Cells).css('border','3px solid red');
+                        $('#questionArea').text('문제 : ' + rowWord2Question);
+                        checkCells = rowWord2Question;
+                        $('#answer').val("").focus();
+                        $('#result').text("문제의 답을 입력 하세요.");
+                        flag = false;
+                    } else {
+                        $(colWord1Cells).css('border','3px solid red');
+                        $('#questionArea').text('문제 : ' + colWord1Question);
+                        checkCells = colWord1Question;
+                        $('#answer').val("").focus();
+                        $('#result').text("문제의 답을 입력 하세요.");
+                        flag = true;
+                    }
+                    return;
+                }
+                $(colWord1Cells).css('border','3px solid red');
+                $('#questionArea').text('문제 : ' + colWord1Question);
+                checkCells = colWord1Question;
+                $('#answer').val("").focus();
+                $('#result').text("문제의 답을 입력 하세요.");
+                //flag = true;
+            });
+        }
+        for(var i=0; i<colWord2.length; i++) {
+            colWord2Cells.push(puzzleArr[3+i][1]);
+            puzzleArr[3+i][1].className = 'question';
+            puzzleArr[3+i][1].addEventListener('click', function() {
+                resetCss();
+                if(this == puzzleArr[3][1]){
+                    if(flag){
+                        $(rowWord2Cells).css('border','3px solid red');
+                        $('#questionArea').text('문제  : ' + rowWord2Question);
+                        checkCells = rowWord2Question;
+                        $('#answer').val("").focus();
+                        $('#result').text("문제의 답을 입력 하세요.");
+                    } else {
+                        $(colWord2Cells).css('border','3px solid red');
+                        $('#questionArea').text('문제 : ' + colWord2Question);
+                        checkCells = colWord2Question;
+                        $('#answer').val("").focus();
+                        $('#result').text("문제의 답을 입력 하세요.");
+                    }
+                    return;
+                }
+                $(colWord2Cells).css('border','3px solid red');
+                $('#questionArea').text('문제 : ' + colWord2Question);
+                checkCells = colWord2Question;
+                $('#answer').val("").focus();
+                $('#result').text("문제의 답을 입력 하세요.");
+                //flag = true;
+            });
+        }
+        $('#okBtn').click(function() {
+            if(checkArr[checkCells] == $('#answer').val().trim()) {
+                $(areaList[checkCells]).each(function(i, item) {
+                    $(this).html(this.ch);
+                    $('#result').text("결과 : 딩동댕!");
+                });
+            } else {
+                $('#result').text("결과 : 땡!");
+                $('#answer').val("").focus();
+            }
+        });
+        $('#answer').keypress(function() {
+            if(event.keyCode == 13 ) {
+                if(checkArr[checkCells] == $('#answer').val().trim()) {
+                    $(areaList[checkCells]).each(function(i, item) {
+                        $(this).html(this.ch);
+                        $('#result').text("결과 : 딩동댕!");
+                    });
+                } else {
+                    $('#result').text("결과 : 땡!");
+                    $('#answer').val("").focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

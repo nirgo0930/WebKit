@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <table border="1" id="saramTable"></table>
+
+    <script>
+        // 옛날 방식의 클래스 선언 (생성자 함수)
+        function Saram(name, job) {
+            this.name = name;
+            this.job = job;
+            // 생성자 안에 선언 하면 모든 객체에 복제 된다.
+            //this.mkRow = function() {
+            //    return `<td>${this.name}</td><td>${this.job}</td>`;
+            //}
+        }
+        // prototype 공통 프로퍼티에 하나만 선언 된다.
+        Saram.prototype.mkRow = function() {
+            return `<td>${this.name}</td><td>${this.job}</td>`;
+        }
+        // Saram을 상속 받은 Student 클래스
+        function Student(name, score) {
+            this.name = name;
+            this.score = score;
+            this.job = "학생";
+        }
+        Student.prototype = new Saram();
+        Student.constructor = Student;
+        Student.prototype.mkRow2 = function() {
+            return this.mkRow() + `<td>${this.score}</td>`;
+        }
+
+        var table = document.querySelector("#saramTable");
+
+        //var saram1 = new Saram("이순신", "장군");
+        //var saram2 = new Saram("세종", "왕");
+        //var saram3 = new Saram("안중의", "의사");
+        //console.dir(saram1);
+        //table.innerHTML = `<tr>${saram1.mkRow()}</tr>`;
+        //table.innerHTML += `<tr>${saram2.mkRow()}</tr>`;
+        //table.innerHTML += `<tr>${saram3.mkRow()}</tr>`;
+
+        var student1 = new Student("홍길동", 95);
+        var student2 = new Student("김길동", 85);
+        var student3 = new Student("박길동", 100);
+        //console.dir(student1.mkRow2());
+        for(var i=1; i<=3; i++) {
+            table.innerHTML += this['student'+i].mkRow2();
+        }
+        
+
+    </script>
+</body>
+</html>

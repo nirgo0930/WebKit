@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 300px;
+            height: 100px;
+            border: 3px solid black;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .slot {
+            width: 100px;
+            margin: 0;
+            height: max-content;
+            border: 1px solid blue;
+            background-color: yellow;
+            box-sizing: border-box;
+            float: left;
+            position: relative;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+            margin: 0;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+
+        class hamburger {
+            constructor() {
+                this.colorList = ["red", "orange", "yellow", "green", "blue", "navy", "purple"];
+                this.slots = [];
+                this.items = [];
+
+                this.init();
+            };
+
+            init() {
+                const body = document.body;
+                body.innerHTML = `<h1>Hamburger House</h1>    <hr />`;
+
+                const box = document.createElement("div");
+                box.className = "container";
+                body.appendChild(box);
+
+                for (let i = 0; i < 3; i++) {
+                    let slot = document.createElement("div");
+                    slot.className = "slot";
+
+                    for (let j = 0; j < this.colorList.length; j++) {
+                        let item = document.createElement("div");
+                        item.className = "item";
+                        item.style.backgroundColor = this.colorList[j];
+                        this.items.push(item);
+                        slot.appendChild(item);
+                    }
+                    this.slots.push(slot);
+                    box.appendChild(slot);
+                }
+
+                let btn = document.createElement("button");
+                btn.textContent = "PUSH";
+                btn.addEventListener("click", () => {
+                    var colorList = this.colorList;
+                    this.slots.forEach(slotBox => {
+                        var y = 0;
+                        let target = Math.floor(Math.random() * 10000 / 100) * 100;
+                        var interval = setInterval(function () {
+                            y -= 10;
+                            slotBox.style.top = y + "px";
+                            if (y <= -(target % colorList.length * 100)) {
+                                clearInterval(interval);
+                                slotBox.style.top = -(target % (colorList.length * 100)) + "px";
+                            }
+                        }, 10);
+                    });
+                });
+                body.appendChild(btn);
+            }
+        }
+
+
+        function main() {
+            new hamburger().init();
+        }
+
+        window.addEventListener("load", main);
+
+    </script>
+</body>
+
+</html>

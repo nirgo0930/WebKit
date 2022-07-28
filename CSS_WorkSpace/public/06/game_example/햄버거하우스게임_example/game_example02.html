@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>day04_ex01.html</title>
+    <style>
+        ul.imgGrp {
+            border: 1px solid red;
+            padding: 0;
+            margin: 0;
+            width: 120px;
+            float: left;
+        }
+        ul.imgGrp > li {
+            border: 1px solid blue;
+            width: 120px;
+            height: 100px;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 100px;
+            list-style: none;
+        }
+        #box {
+            border: 3px solid black;
+            height: 100px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<h1>햄버거 하우스 게임</h1>
+<hr>
+<div id="box"></div>
+
+
+<script>
+    function ImgGrp(parentElement) {
+        this.parentElement = parentElement;
+        this.ulTag = null;
+        this.init();
+    }
+    ImgGrp.prototype.init = function() {
+        console.log('init ...');
+        //console.log(this.parentElement);
+        //ul태그를 만들어서 parentElement에 append 한다.
+        this.ulTag = document.createElement('ul');
+        this.ulTag.className = 'imgGrp';
+        this.ulTag.style.position = "relative";
+        var colos = ['red','green','blue','orange','brown'];
+        for(var i=0; i<10; i++){
+            this.liTag = document.createElement('li');
+            this.liTag.innerText = i+1;
+            this.liTag.style.backgroundColor = colos[i%colos.length];
+            this.ulTag.appendChild(this.liTag);
+        }
+        this.parentElement.appendChild(this.ulTag);
+    };
+    ImgGrp.prototype.start = function() {
+        console.log('Start!');
+        var x = 0;
+        var target = (Math.floor(Math.random()*10000 / 100)) * 100;
+        var ul_tag = this.ulTag;
+        //this.setInterval = window.setInterval;
+        var interval = setInterval(function() {
+            //여기서 this는 window가 된다.
+            x -= 30;
+            console.log(x);
+            ul_tag.style.top = x + "px";
+            if(x <= -(target%900) ) {
+                clearInterval(interval);
+                ul_tag.style.top = -(target%900) + "px";
+            }
+        }, 1000/30);
+    };
+
+    window.onload = function() {
+        var box = document.getElementById("box");
+        //console.log(box);
+
+        var imgGrp01 = new ImgGrp(box);
+        imgGrp01.start();
+        var imgGrp02 = new ImgGrp(box);
+        imgGrp02.start();
+        var imgGrp03 = new ImgGrp(box);
+        imgGrp03.start();
+    }
+</script>
+
+</body>
+</html>

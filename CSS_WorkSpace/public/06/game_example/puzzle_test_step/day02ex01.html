@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #puzzle {
+            border: 1px solid red;
+            width: 400px;
+            height: 400px;
+        }
+        div.cell {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            box-sizing: border-box;
+            float: left;
+        }
+        div.cell ul {
+            position: relative;
+            border: 0px solid blue;
+            width: 200px;
+            height: 100px;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            left: 0px;
+            transition: left .2s ease-in;
+        }
+        div.cell ul li {
+            width: 100px;
+            height: 100px;
+            float: left;
+            text-align: center;
+            line-height: 100px;
+        }
+        div.cell ul li:nth-child(1) {
+            background-color: #aaa;
+        }
+        div.cell ul li:nth-child(2) {
+            background-color: #ff0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="puzzle"></div>
+
+    <script id="template_cell" type="template/html">
+        <div class="cell">
+            <ul>
+                <li>?</li>
+                <li>-1</li>
+            </ul>
+        </div>
+    </script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        var template_cell = document.getElementById("template_cell");
+        var txtCell = template_cell.innerHTML;
+        var puzzle = document.getElementById("puzzle");
+        var txtCells = "";
+        for(var i=0; i<16; i++) {
+            txtCells += txtCell;
+        }
+        puzzle.innerHTML = txtCells;
+        // 클래스 값이 cell인 엘리먼트들을 리스트 형식으로 반환한다.
+        var cells = document.getElementsByClassName("cell");
+        // ul리스트의 첫번째 요소
+        for(var i=0; i<cells.length; i++) {
+            // .cell 태그를 클릭하면 ul의 left를 -100px만큼 이동한다.
+            // cells[i].onclick = function() {
+            //     var ulTag = this.getElementsByTagName("ul")[0];
+            //     // 이벤트 핸들러 안에서 this는 이벤트가 발생한 요소 자신이다.
+            //     // 참고: 객체 또는 이벤트 핸들러 외부에서 this는 window 객체이다.
+            //     if(ulTag.style.left == '0px') {
+            //         ulTag.style.left = '-100px';
+            //     } else {
+            //         ulTag.style.left = '0px';
+            //     }
+            // };
+            cells[i].addEventListener('click',  function() {
+                var ulTag = this.getElementsByTagName("ul")[0];
+                // 이벤트 핸들러 안에서 this는 이벤트가 발생한 요소 자신이다.
+                // 참고: 객체 또는 이벤트 핸들러 외부에서 this는 window 객체이다.
+                if(ulTag.style.left == '0px') {
+                    ulTag.style.left = '-100px';
+                } else {
+                    ulTag.style.left = '0px';
+                }
+            }, true);
+            // 두번 눌러야 하는 문제 해결
+            $(cells[i]).trigger('click');
+        }
+
+        // console.log(this);// window
+        // function aaa() {
+        //     console.log(this); //window
+        // }
+        // aaa();
+        
+    </script>
+</body>
+</html>

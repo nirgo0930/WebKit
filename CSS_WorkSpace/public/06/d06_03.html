@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var human_list = [
+            { num: 1001, name: '홍길동', score: 100 },
+            { num: 1022, name: '김길동', score: 100 },
+            { num: 1053, name: '이길동', score: 100 },
+            { num: 1034, name: '박길동', score: 100 },
+            { num: 1045, name: '강길동', score: 100 },
+        ];
+
+        human_list.forEach((item, i) => {
+            if (item.num == 1053) {
+                console.dir(item);
+            }
+        });
+
+        var human = human_list.filter((item, i) => {
+            return item.num == 1053;
+        });
+        console.log(human);
+
+        var idx = human_list.findIndex((item, i) => {
+            return item.num == 1053;
+        });
+        console.log(human_list[idx]);
+        human_list.splice(idx,1);
+
+
+        console.log(human_list);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>objectEx08.html</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul.cardGrp {
+            position: relative;
+            width: 100px;
+            border: 0px solid blue;
+            padding: 0;
+            float: left;
+            top: -500px;
+            box-sizing: border-box;
+        }
+        ul.cardGrp li {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            list-style: none;
+            text-align: center;
+            line-height: 100px;
+            box-sizing: border-box;
+        }
+        div#gameArea {
+            position: relative;
+            border: 1px solid black;
+            width: 300px;
+            height: 100px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+   
+   <h1>햄버거하우스 게임</h1>
+   <div id="gameArea"></div>
+    
+</body>
+</html>
+<script>
+    function CardGroup() {
+        this.cardElement;
+        this.cardElement = document.createElement('ul');
+        this.cardElement.className = 'cardGrp';
+        this.target = Math.floor(Math.random() * 3000) * -1;
+        for(var i=0; i<10; i++) {
+            var li = document.createElement('li');
+            li.innerHTML = i;
+            this.cardElement.appendChild(li);
+        }
+        
+        this.y = Math.floor(Math.random()*900);
+        this.y = Math.floor(this.y/100)*100;
+        this.y = this.y * -1;
+        this.cardElement.style.top = this.y+'px';
+    }
+    CardGroup.prototype.play = function() {
+        console.log('카드 회전 시작!');
+        var step = 10;
+        var THIS = this;
+        THIS.fn = setInterval(function() {
+            THIS.y = THIS.y - step;
+            THIS.cardElement.style.top = (THIS.y*-1 % 900)*-1 +'px';
+            if(THIS.y <= THIS.target) {
+                /*THIS.y *= -1;
+                THIS.y = Math.floor(THIS.y/100)*100;
+                THIS.y = THIS.y * -1;
+                THIS.cardElement.style.top = THIS.y+'px';*/
+                clearInterval(THIS.fn);
+            }
+        }, 30 );
+    }
+    CardGroup.prototype.getCard = function() {
+        return this.cardElement;
+    }
+    
+    function Game(gameArea) {
+        this.gameArea = gameArea;
+        this.cardGrpArr = new Array(3);
+        this.cnt = 0;
+    }
+    Game.prototype.setCardGroup = function(cardGrp) {
+        this.cardGrpArr[this.cnt] = cardGrp;
+        this.gameArea.appendChild(this.cardGrpArr[this.cnt].getCard());
+        this.cnt = this.cnt + 1;
+    }
+    Game.prototype.start = function() {
+        if(this.cardGrpArr[0]==null || this.cardGrpArr[1]==null || this.cardGrpArr[2]==null) {
+            alert('카드가 부족합니다.');
+            return;
+        }
+        this.cardGrpArr[0].play();
+        this.cardGrpArr[1].play();
+        this.cardGrpArr[2].play();
+    }
+    var gameArea = document.getElementById('gameArea');
+    var game = new Game(gameArea);
+    game.setCardGroup(new CardGroup());
+    game.setCardGroup(new CardGroup());
+    game.setCardGroup(new CardGroup());
+    game.start();
+</script>
+
+
+
+
+
+
+
+
+
+

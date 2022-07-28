@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div#puzzle {
+            width: 400px;
+            height: 400px;
+            border: 1px solid red;
+        }
+        div.cell {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            border: 1px solid #000;
+            position: relative;
+            box-sizing: border-box;
+            float:left;
+        }
+        div.cell ul {
+            width: 200px;
+            height: 100px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            left: 0px;
+            transition: left .1s ease-in;
+        }
+        div.cell ul li {
+            text-align: center;
+            line-height: 100px;
+            height: 100px;
+            width: 100px;
+            float: left;
+        }
+        div.cell li:nth-child(1) {
+            background-color: yellow;
+        }
+        div.cell li:nth-child(2) {
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div id="puzzle"></div>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        var txtCell = `<div class="cell">
+            <ul>
+                <li>?</li>
+                <li>7</li>
+            </ul>
+        </div>`;
+        for(var i=0; i<16; i++) {
+            $('#puzzle').append(txtCell);
+        }
+        $(function() {
+            $('div.cell ul').click(function() {
+                if($(this).css('left') == '0px') {
+                    $(this).css('left', '-100px');
+                } else {
+                    $(this).css('left', '0px');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
