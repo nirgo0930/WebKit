@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <style>
+        canvas#myCanvas {
+            border: 1px solid blue;
+        }
+
+        #messageBox {
+            border: 1px solid black;
+            width: 400px;
+            height: 100px;
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        const socket = io.connect('http://localhost:3000');
+
+        socket.on('connect', function (e) {
+            console.log("socket connection");
+            messageBox.innerHTML += `<br>txt`
+
+            sendBtn.onclick = function () {
+                var message = messageInput.value;
+                socket.emit('client-message', { 'sender': 'client', 'message': message });
+            };
+
+            socket.on('news', function (data) {
+                messageBox.innerHTML += `<br>${data['sender']} : ${data['message']}`;
+            });
+        });
+
+
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            socket.emit('message', {
+                status: 'start', x: e.offsetX, y: e.offsetY,
+                color: myBrush.color, depth: myBrush.depth
+            });
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
