@@ -10,15 +10,40 @@
 
 <body>
     <form action="">
-        <input type="file" class="file" id="imageSelector" name="imageSelector" accept="image/jpeg, image/jpg, image/png" multiple>
+        <input type="file" class="file" id="imageSelector" name="imageSelector"
+            accept="image/jpeg, image/jpg, image/png" multiple>
     </form>
-    <div id ="preview-image"></div>
+    <div id="preview-image"></div>
 
     <script>
-        var fileInput = document.querySelectorAll("input.file");
-        for(var i = 0; i < fileInput.length; i++) {
-            console.log(fileInput[i]);
+        var fileInput = document.getElementById("imageSelector");
+        function readImage(input) {
+            if (input.files && input.files[0]) {
+                const previewImageDiv = document.getElementById("preview-image");
+                for (var i = 0; i < input.files.length; i++) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        let readFileURL = e.target.result;
+
+                        const imageBox = document.createElement('img');
+                        imageBox.setAttribute('src', readFileURL);
+                        imageBox.setAttribute('width', '200px');
+
+                        imageBox.addEventListener('click', function () {
+                            previewImageDiv.removeChild(imageBox);
+                        });
+
+                        previewImageDiv.appendChild(imageBox);
+                    };
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        }
+
+        fileInput.onchange = (e) => {
+            readImage(e.currentTarget);
         };
+
     </script>
 </body>
 

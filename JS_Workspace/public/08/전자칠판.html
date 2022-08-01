@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <style>
+        canvas#myCanvas {
+            border: 1px solid blue;
+        }
+
+        #messageBox {
+            border: 1px solid black;
+            width: 400px;
+            height: 100px;
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="myCanvas" id="myCanvas" width="600" height="300" style="background-color:yellowgreen"></canvas>
+    <div>
+        <button class="colorBtn" style="background-color:red">Red</button>
+        <button class="colorBtn" style="background-color:orange">Orange</button>
+        <button class="colorBtn" style="background-color:yellow">Yellow</button>
+        <button class="colorBtn" style="background-color:green">Green</button>
+        <button class="colorBtn" style="background-color:blue">Blue</button>
+        <button class="colorBtn" style="background-color:navy">Navy</button>
+        <button class="colorBtn" style="background-color:purple">Purple</button>
+        <button class="colorBtn" style="background-color:black; color:white">Black</button>
+        <button id="removeBtn">지우기</button>
+        <button id="resetBtn">초기화</button>
+        <hr>
+    </div>
+    <div id="messageBox"> 메시지를 입력하세요.</div>
+    <input type="text" value="hello world" id="messageInput">
+    <input type="button" value="전송" id="sendBtn">
+
+    <script>
+        const socket = io.connect('http://localhost:3000');
+        const messageBox = document.getElementById('messageBox');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        /** @type {HTMLCanvasElement} */
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        var myBrush = {
+            color: "black",
+            depth: 2
+        };
+        
+        const colorBtns = document.querySelectorAll('.colorBtn');
+        const removeBtn = document.getElementById('removeBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        console.dir(colorBtns);
+        var drawing = false;
+
+        ctx.beginPath();
+        ctx.beginPath();
+
+        removeBtn.style.backgroundColor = 'gray';
+
+        socket.on('connect', function (e) {
+            console.log("socket connection");
+            messageBox.innerHTML += `<br>txt`
+
+            sendBtn.onclick = function () {
+                var message = messageInput.value;
+                socket.emit('client-message', { 'sender': 'client', 'message': message });
+            };
+
+            socket.on('news', function (data) {
+                messageBox.innerHTML += `<br>${data['sender']} : ${data['message']}`;
+            });
+
+            var isTrue = false;
+            socket.on('start', (data) => {
+                ctx.beginPath();
+
+                ctx.moveTo(data.x, data.y);
+                ctx.strokeStyle = data.color;
+                ctx.lineWidth = data.depth;
+                isTrue = true;
+            });
+            socket.on('draw', (data) => {
+                if (isTrue) {
+                    console.log(data);
+                    ctx.strokeStyle = data.color;
+                    ctx.lineWidth = data.depth;
+                    ctx.lineTo(data.x, data.y);
+                    ctx.stroke();
+                }
+            });
+            socket.on('end', (data) => {
+                ctx.beginPath();
+                isTrue = false;
+            });
+
+            socket.on('reset', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+
+            });
+        });
+
+
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            socket.emit('message', {
+                status: 'start', x: e.offsetX, y: e.offsetY,
+                color: myBrush.color, depth: myBrush.depth
+            });
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                socket.emit('message', {
+                    status: 'draw', x: e.offsetX, y: e.offsetY,
+                    color: myBrush.color, depth: myBrush.depth
+                });
+            }
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            drawing = false;
+            socket.emit('message', { status: 'end' });
+        });
+
+        resetBtn.addEventListener('click', () => {
+            socket.emit('message', { status: 'reset' });
+        });
+        
+        colorBtns.forEach((btn, i) => {
+            btn.addEventListener('click', (e) => {
+                removeBtn.style.backgroundColor = 'gray';
+                myBrush.color = btn.style.backgroundColor;
+                myBrush.depth = 2;
+            });
+        });
+
+        removeBtn.addEventListener('click', (e) => {
+            removeBtn.style.backgroundColor = 'yellow';
+            myBrush.color = canvas.style.backgroundColor;
+            myBrush.depth = 30;
+        });
+
+
+    </script>
+</body>
+
+</html>

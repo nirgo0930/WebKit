@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,42 @@
     <title>Document</title>
     <style>
         canvas#myCanvas {
-            border: solid 1px brown;
+            border: solid 1px blue;
         }
     </style>
 </head>
+
 <body>
-    <canvas id="myCanvas" width="640" height="480"></canvas>
+    <canvas class="myCanvas" id="myCanvas" width="640" height="480"></canvas>
 
     <script>
-        var ctx = document.getElementById("myCanvas").getContext("2d");
-        console.log(ctx);
+        /** @type {HTMLCanvasElement} */
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
 
-        var x = 0;
-        var interval = setInterval(function(){
-            x += 3;
-            if(x>=500) {
-                clearInterval(interval);
+        ctx.linestyle = "black";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        var drawing = false;
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
             }
-            ctx.fillStyle = "#ffffff";
-            ctx.fillRect(x-10, 50, 100, 80);
-            ctx.fillStyle = "#ff0000";
-            ctx.fillRect(x, 50, 100, 80);
-        },30);
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            drawing = false;
+        });
+
+
     </script>
 </body>
+
 </html>
