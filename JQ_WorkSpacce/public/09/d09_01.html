@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">box</div>
+    <p class="box">Hello</p>
+    <div class="box">World</div>
+
+    <div class="status">좋아! 좋아!!</div>
+
+    <script>
+        var _$ = function (selector) {
+            var dom = document.querySelectorAll(selector);
+            var obj = {};
+            obj.dom = dom;
+            obj.color = function (color) {
+                for (var i = 0; i < this.dom.length; i++) {
+                    this.dom[i].style.color = color;
+                }
+                return this;
+            }
+            obj.border = function (data) {
+                for (var i = 0; i < this.dom.length; i++) {
+                    this.dom[i].style.border = data;
+                }
+                return this;
+            }
+            obj.size = function (sizeData) {
+                for (var i = 0; i < this.dom.length; i++) {
+                    this.dom[i].style.width = sizeData.width;
+                    this.dom[i].style.height = sizeData.height;
+                }
+                return this;
+            }
+            obj.moveTo = function (moveData) {
+                for (var i = 0; i < this.dom.length; i++) {
+                    var box = this.dom[i];
+                    box.style.position = "relative";
+                    box.style.transtion = "left .3s";
+                    var xpos = box.offsetLeft;
+                    var inter = setInterval(function () {
+                        xpos += 10;
+                        if (xpos >= parseInt(moveData.left)) {
+                            clearInterval(inter);
+                            xpos = moveData.left;
+                        }
+                        box.style.left = xpos + "px";
+                    }, 30);
+                }
+                return this;
+            }
+            return obj;
+        };
+
+        _$(".box").color("red").border("5px solid blue");
+        _$(".status").color("orange").border("3px solid red");
+        // 직접 추가해서 구현 해 보세요.
+        // moveTo()는 애니메이션 되도록...
+        _$(".status").size({ 'width': '100px', 'height': '100px' }).moveTo({ 'left': '500px' });
+    </script>
+</body>
+
+</html>

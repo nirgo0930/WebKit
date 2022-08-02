@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        localStorage.setItem('user', 'Kim');
+        var user = localStorage.getItem('user');
+
+        document.write(`<h3>user : ${user}</h3>`);
+
+        var listSample = [
+            { user: 'Kim', age: 20 },
+            { user: 'Lee', age: 22 },
+            { user: 'Park', age: 23 },
+        ];
+
+        localStorage.setItem('listSample', JSON.stringify(listSample));
+        var newListStr = localStorage.getItem('listSample');
+        var newList = JSON.parse(newListStr);
+        console.log(newList);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+
+<body>
+    <h1>hello world</h1>
+
+    <script>
+        $.fn.changeColor = function (color, callback) {
+            this.css({ 'color': color });
+            callback();
+        };
+
+        $('h1').changeColor("red", function (target) {
+            alert("change color");
+        });
+    </script>
+
+</body>
+
+</html>
