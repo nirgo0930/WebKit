@@ -6,16 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
 </head>
 
 <body>
     <h1>jQuery 연습 04</h1>
     <div id="box"></div>
-    <script src="http://code.jquery.com/jquery.js"></script>
     <script>
-        $("#box").load('listTag.txt');
+        var colors = ['red', 'green', 'orange', 'blue', 'gray', 'brown'];
+        $("#box").load('listTag.txt', function (loadEvt) {
+            // 외부 파일의 text가 모두 불러져서 dom으로 만들어 진 후에 실행.
+            $('ul.fish_list li').each(function (idx, element) {
+                console.log(idx, element);
+                $(element).data("idx", idx);
+                element.no = idx;
+            });
+            $('ul.fish_list li').click(function (clickEvt) {
+                //console.log(arguments);
+                //console.log($(this).text());
+                // 해당 li요소를 클릭하면 배경과 글자 색이 바뀌게 한다.
+                //$(this).css({backgroundColor:'yellow', color:'red'});
+                $(this).css({ backgroundColor: colors[this.no] });
+                //console.log($(this).data("idx"));
+                //console.log(this.no);
+            });
+        });
 
-        $('ul.fish_list')
     </script>
 </body>
 

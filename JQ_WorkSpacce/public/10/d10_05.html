@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form class="userForm" action="https://www.naver.com">
+        사용자 : <input type="text" name="user" placeholder="이름을 입력하시오." /> <br />
+        <input type="submit" value="전송" />
+    </form>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        $(function () {
+            $('form.userForm').on('submit', function (event) {
+                // 폼의 기본 기능인 페이지 전환을 중지 시킨다.
+                event.preventDefault();
+                // form의 요소 값 확인
+                console.log('폼의 submit 버튼 클릭!', $(this), event.currentTarget);
+                console.log($(this).find('input[name=user]').val());
+                console.log($('input[name=user]', this).val());
+                console.log(this.user.value);
+            });
+
+            $('input[name=user]').focus(function (event) {
+                $(this).css({ backgroundColor: 'yellow' });
+            }).blur(function (event) {
+                $(this).css({ backgroundColor: '' });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-storage.js"></script>
+
+    <style>
+        div.inputPage {
+            width: 800px;
+        }
+
+        div.inputPage div.leftSide {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1>LYS TEST GALLERY</h1>
+            <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first
+                projects on the web.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="inputPage">
+            <div class="leftSide">
+                <div>
+                    <label>ObjectID</label>
+                    <span id="object_id_show"></span>
+                    <input type="hidden" id="object_id" value="">
+                </div>
+                <div>
+                    <label>ID</label>
+                    <input type="text" id="userId" value="">
+                </div>
+                <div>
+                    <label>NAME</label>
+                    <input type="text" id="name" value="">
+                </div>
+                <div>
+                    <label>EMAIL</label>
+                    <input type="text" id="email" value="">
+                </div>
+                <div>
+                    <label>PHOTO</label>
+                    <input type="file" id="photo">
+                </div>
+            </div>
+            <div class="rightSide">
+                <div><img class ="image" id="imgView" src="../img/noimage.png" width="300"></div>
+                <div>more information: </div>
+            </div>
+            <div class="saveBtnGroup">
+                <label colspan="2">PASSWORD:</label><input type="text" id="passwd" value="" size="4">
+                <button id="saveBtn">SAVE</button>
+                <button id="updateBtn">UPDATE</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <table id="dataListTable" class="table">
+            <thead>
+                <th>No</th>
+                <th>PHOTO</th>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>DELETE</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                let app = firebase.app();
+                const db = firebase.firestore();
+                const storage = firebase.storage();
+
+                var dataList = [];
+                var topNo = 0;
+                function mkTable() {
+                    db.collection("gallery").get().then((querySnapshot) => {
+                        dataList = [];
+                        $('#dataListTable tbody').html("");
+                        querySnapshot.forEach((doc) => {
+                            var data = doc.data();
+                            data.id = doc.id;
+                            dataList.push(data);
+                            $('#dataListTable tbody').append(
+                                `<tr>
+                                    <td>${topNo++}</td>
+                                    <td>img</td>
+                                    <td>${data.userId}</td>
+                                    <td>${data.name}</td>
+                                    <td>${data.email}</td>
+                                    <td>
+                                        <div>
+                                            <input type="text" size="4">
+                                            <button class="delBtn" value="">delete</button>
+                                        </div>
+                                    </td>
+                                </tr>`);
+                        });
+
+                        $("#saveBtn").click(function (event) {
+                            var timestamp = new Date().getTime();
+                            var fileData = $(".image")[0].files[0];
+                            var fileDataName = fileData.name;
+                            var suffix = fileDataName.substr(fileData.name.lastIndexOf("."));
+                            var newFileName = timestamp + suffix;
+
+                            var uplaodRef = storage.ref();
+                            var fileSavePath = uplaodRef.child('photo/' + newFileName);
+                            var result = fileSavePath.put(fileData).then(function (snapshot) {
+                                console.log("사진 저장 ...");
+                                snapshot.ref.getDownloadURL().then(function (downLoadUrl) {
+                                    var saveData = {
+                                        userId: $('#userId').val(),
+                                        name: $('#name').val(),
+                                        email: $('#email').val(),
+                                        password: $('#passwd').val(),
+                                        image: newFileName,
+                                        downLoadUrl: downLoadUrl
+                                    }
+                                    db.collection("gallery").add(saveData).then((docRef) => {
+                                        console.log("Document written with ID: ", docRef.id);
+                                        loadData(db);
+                                    }).catch((error) => {
+                                        console.error("Error adding document: ", error);
+                                    });
+                                });
+                            });
+                        }); 
+
+
+                        $('.delBtn').click(function (event) {
+                            var dataId = $(this).attr("data-id");
+                            var dataImg = $(this).attr("data-img");
+                            db.collection("gallery").doc(dataId).delete().then(() => {
+                                var storageRef = storage.ref();
+                                var delImgRef = storageRef.child('photo/' + dataImg);
+                                delImgRef.delete().then(function () {
+                                    loadData(db); // 삭제 성공 후 재귀호출.
+                                }).catch(function () {
+                                    console.log("delete img error!");
+                                })
+                            }).catch((error) => {
+                                console.error("Error removing document: ", error);
+                            });
+                        });
+
+                    });
+                }
+                mkTable();
+            } catch (e) {
+                console.error(e);
+                loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+            }
+        });
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyD9NkA2OgB6BxXwRiQbiADxJRi_ZYawm_Y",
+            authDomain: "webkit-44cf8.firebaseapp.com",
+            projectId: "webkit-44cf8",
+            storageBucket: "webkit-44cf8.appspot.com",
+            messagingSenderId: "805334426042",
+            appId: "1:805334426042:web:c6b837751601bfc1233d83",
+            measurementId: "G-0JCH1LF2LS"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+
+</html>
