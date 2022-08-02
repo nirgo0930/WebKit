@@ -1,0 +1,7 @@
+<ul class="fish_list">
+    <li>오징어</li>
+    <li>꼴뚜기</li>
+    <li>대구</li>
+    <li>명태</li>
+    <li>거북이</li>
+</ul>

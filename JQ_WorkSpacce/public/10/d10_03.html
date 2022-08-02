@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery02/ex03.html</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <h1>jQuery 실습</h1>
+    <div id="box">box</div>
+    <button id="changeBtn">체인지</button>
+
+    <script>
+        var fish = ['오징어', '꼴뚜기', '대구', '명태', '거북이'];
+
+        var arr = fish.map(function (item, i, ar) {
+            console.log(item, i, ar);
+            //return { 'no': i, 'name': item };
+            return `<li>${item}</li>`;
+        });
+        console.log(arr);
+        $('#changeBtn').click(function () {
+            $('#box').append('<ul>');
+            arr.forEach(function (item) {
+                $('#box ul').append(item);
+            });
+            $('#box').append('</ul>');
+        });
+
+    </script>
+    <!--
+        // jQuery 메서드 기본 사용 법
+        // $('css셀렉터').메서드(콜백함수)
+
+        // $('css셀렉터').on('이벤트종류', 콜백함수);
+
+        // 윈도우 이벤트의 종류
+        // ready, resize, scroll, load, unload
+    -->
+
+</body>
+
+</html>
