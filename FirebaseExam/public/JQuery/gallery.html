@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="rightSide">
-                <div><img class ="image" id="imgView" src="../img/noimage.png" width="300"></div>
+                <div><img class="image" id="imgView" src="../img/noimage.png" width="300"></div>
                 <div>more information: </div>
             </div>
             <div class="saveBtnGroup">
@@ -149,7 +149,21 @@
                                     });
                                 });
                             });
-                        }); 
+                        });
+
+                        function readImage(input) {
+                            if (input.files && input.files[0]) {
+                                const reader = new FileReader()
+                                reader.onload = e => {
+                                    console.log(e.target.result);
+                                    let readFileURL = e.target.result;
+                                    const previewImageDiv = document.getElementById("image");
+                                    $(previewImageDiv).append('<img width="200" src="' + readFileURL + '"/>');
+                                }
+                                reader.readAsDataURL(input.files[0])
+                            }
+                        }
+
 
 
                         $('.delBtn').click(function (event) {
