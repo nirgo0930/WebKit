@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function MyList() {
+            let humanList = ['Kim', 'Lee', 'Park', 'Choi'];
+
+            return (<>
+                <h3>Welcome to my homepage!</h3>
+                <ul>
+                    {
+                        //자바스크립트 내의 JSP안에서 자바스크립트 작성
+                        //JSX와 JS문장의 구분은 {}를 사용
+                        humanList.map((name, i) => {
+                            return <li key={i}>{name}</li>;
+                        })
+                    }
+                </ul>
+            </>);
+        }
+
+        function MyList2() {
+            let listItems = [
+                <li key="1">오징어</li>,
+                <li key="2">꼴뚜기</li>,
+                <li key="3">대구</li>
+            ];
+
+            return (<>
+                <ul>
+                    {listItems}
+                </ul>
+            </>);
+        }
+
+        function Hello() {
+            return (<>
+                <div>
+                    <h1>Hello World!</h1>
+                    <MyList />
+                    <MyList2 />
+                </div>
+            </>);
+        }
+
+        ReactDOM.render(<Hello />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>

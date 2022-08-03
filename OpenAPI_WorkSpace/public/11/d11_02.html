@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function MyList(props) {
+            console.log(arguments);
+            console.log(props);
+            return (<>
+                <ul>
+                    {
+                        props.data.map((name, i) => {
+                            return <li key={i}>{name}</li>;
+                        })
+                    }
+                </ul>
+            </>);
+        }
+
+        function App() {
+            let humanList = ['Kim', 'Lee', 'Park', 'Choi'];
+            let fishList = ['오징어', '꼴뚜기', '대구'];
+            return (<>
+                <div>
+                    <h1>Hello World!</h1>
+                    <MyList data={humanList} tite="humanList" />
+                    <MyList data={fishList} tite="fishList" />
+                </div>
+            </>);
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>
