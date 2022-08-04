@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function PhoneList(props) {
-    return (<>
-        <ul>
-            {props.phoneList.map((item, i) => {
-                return <>
-                    <li key={i}>
-                        {i + 1}.{item.name} / {item.phone} / {item.email} / <br />
-                        <input type="button" value="삭제" onClick={(e) => { props.onDelete(item.name) }} />
-                    </li>
+    return (
+        <div>
+            <ul>
+                {props.phoneList.map((item, i) => {
+                    return <>
+                        <li key={item.id}>
+                            {i + 1}.{item.name} / {item.phone} / {item.email} / <br />
+                            <input type="button" value="삭제" onClick={(e) => { props.onDelete(item.id) }} />
+                        </li>
 
-                </>
-            })}
-        </ul>
+                    </>
+                })}
+            </ul>
 
-    </>);
+        </div>);
 }
 
 export default PhoneList;
