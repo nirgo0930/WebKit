@@ -1,5 +1,4 @@
-import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 
 class TodoList extends React.Component {
     constructor(props) {
