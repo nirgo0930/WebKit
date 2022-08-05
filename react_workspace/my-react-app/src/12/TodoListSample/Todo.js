@@ -3,27 +3,27 @@ import DeleteOutline from '@mui/icons-material/DeleteOutline'
 import { useState } from "react";
 
 function Todo({ item, deleteItem, editItem, toggleCheckbox }) {
-    const [readOnly, setReadOnly] = useState(true);
+  const [readOnly, setReadOnly] = useState(true);
 
-    const deleteItemHandler = (e) => {
-        deleteItem(item)
+  const deleteItemHandler = (e) => {
+    deleteItem(item)
+  }
+  const offReadOnlyMode = function (e) {
+    setReadOnly(false);
+  }
+  const enterKeyEventHandler = function (e) {
+    if (e.key === 'Enter') {
+      setReadOnly(true);
     }
-    const offReadOnlyMode = function(e) {
-        setReadOnly(false);
-    }
-    const enterKeyEventHandler = function(e) {
-        if(e.key === 'Enter') {
-            setReadOnly(true);
-        }
-    }
-    const editEventHandler = (e) => {
-        let newItem = {...item};
-        newItem.title = e.currentTarget.value;
-        editItem(newItem)
-    }
+  }
+  const editEventHandler = (e) => {
+    let newItem = { ...item };
+    newItem.title = e.currentTarget.value;
+    editItem(newItem)
+  }
   return (
     <ListItem>
-      <Checkbox checked={item.done} onChange={(e)=>{
+      <Checkbox checked={item.done} onChange={(e) => {
         toggleCheckbox(item);
       }} />
       <ListItemText>
@@ -42,7 +42,7 @@ function Todo({ item, deleteItem, editItem, toggleCheckbox }) {
       </ListItemText>
       <ListItemSecondaryAction>
         <IconButton aria-label="Delete Todo" onClick={deleteItemHandler}>
-        <DeleteOutline />
+          <DeleteOutline />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>

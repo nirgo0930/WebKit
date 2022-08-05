@@ -8,8 +8,8 @@ function App() {
     { id: "0", title: "Hello World 1", done: true },
     { id: "1", title: "Hello World 2", done: false },
   ]);
-  
-  const add = (item)=>{
+
+  const add = (item) => {
     item.id = "ID-" + items.length;
     item.done = false;
     setItems([...items, item]);
@@ -17,16 +17,16 @@ function App() {
 
   const deleteItem = (item) => {
     const thisItems = [...items];
-    const idx = thisItems.findIndex((elem)=>{
+    const idx = thisItems.findIndex((elem) => {
       return elem.id == item.id;
     })
     thisItems.splice(idx, 1);
     setItems(thisItems)
   }
 
-  const editItem = function(newItem) {
+  const editItem = function (newItem) {
     const thisItems = [...items];
-    const idx = thisItems.findIndex((elem)=>{
+    const idx = thisItems.findIndex((elem) => {
       return elem.id == newItem.id;
     });
     thisItems[idx] = newItem;
@@ -35,7 +35,7 @@ function App() {
 
   const toggleCheckbox = (item) => {
     const thisItems = [...items];
-    const idx = thisItems.findIndex((elem)=>{
+    const idx = thisItems.findIndex((elem) => {
       return elem.id == item.id;
     });
     thisItems[idx].done = !thisItems[idx].done;
@@ -46,7 +46,7 @@ function App() {
     <Paper style={{ margin: 16 }}>
       <List>
         {items.map((item) => (
-           <Todo item={item} key={item.id} deleteItem={deleteItem} editItem={editItem} toggleCheckbox={toggleCheckbox}/>
+          <Todo item={item} key={item.id} deleteItem={deleteItem} editItem={editItem} toggleCheckbox={toggleCheckbox} />
         ))}
       </List>
     </Paper>
