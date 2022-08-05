@@ -1,0 +1,31 @@
+body {
+    background-color: skyblue;
+}
+
+.center {
+    text-align: center;
+    color: white;
+}
+fieldset{
+    text-align: center;
+    
+}
+
+fieldset div{
+    background-color: white;
+    width: fit-content;
+    padding: 5px;
+    display: inline-block;
+}
+
+input {
+    background-color: white;
+    border: none;
+}
+
+button {
+    background-color: orange;
+    color: white;
+    border: none;
+    margin-left: 5px;
+}
